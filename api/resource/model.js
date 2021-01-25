@@ -3,4 +3,16 @@ const db = require("../../data/dbConfig");
 
 const findAll = (table) => db(table);
 
-module.exports = { findAll };
+const insert = async (table, resource) => {
+	try {
+		await db(table).insert(resource);
+		const newResource = await db(table).where({
+			resource_name: resource.resource_name,
+		});
+		return newResource;
+	} catch (err) {
+		throw new Error();
+	}
+};
+
+module.exports = { findAll, insert };
