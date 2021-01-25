@@ -22,4 +22,16 @@ const findAllTasks = async (table) => {
 	}
 };
 
-module.exports = { findAllTasks };
+const insert = async (table, task) => {
+	try {
+		await db(table).insert(task);
+		const newTask = await db(table).where({
+			task_description: task.task_description,
+		});
+		return helper.mapIntToBool(newTask, ["task_completed"]);
+	} catch (err) {
+		throw new Error();
+	}
+};
+
+module.exports = { findAllTasks, insert };
