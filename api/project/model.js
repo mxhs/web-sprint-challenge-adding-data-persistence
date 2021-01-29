@@ -17,6 +17,7 @@ const insert = async (table, project) => {
 		const newProject = await db(table).where({
 			project_name: project.project_name,
 		});
+
 		return helper.mapIntToBool(newProject, ["project_completed"]);
 	} catch (err) {
 		throw new Error();

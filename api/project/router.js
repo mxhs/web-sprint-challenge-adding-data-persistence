@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
 	try {
 		const newProject = await Projects.insert("projects", req.body);
-		res.status(201).json(newProject);
+		res.status(201).json(newProject[0]);
 	} catch (err) {
 		next(err);
 	}
